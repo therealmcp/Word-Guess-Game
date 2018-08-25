@@ -8,9 +8,6 @@ console.log(randWord);
 // Converts randWord (string) into an array
 var mystWord = randWord.split('');
 
-// Blanks in the word chosen by comp (mystWord)
-var blanks = [];
-
 // Correct letters guessed by user (according to mystWord)
 var rightLetter = [];
 
@@ -26,7 +23,7 @@ document.getElementById("guessesLeft").innerHTML = 7;
 
 var generateUnderscore = function() {
     for (var i = 0; i < mystWord.length; i++) {
-        correctWord.push(" _ ");
+        correctWord.push("_");
         }
     return correctWord;    
 }
@@ -51,30 +48,32 @@ document.addEventListener('keyup', function(event) {
 
         // If guess is correct, replace underscore with corrisponding letter
 
-        for (var j = 0; j < blanks; j++) {
+        for (var j = 0; j < correctWord.length; j++) {
             if (guessedLetter === mystWord[j]) {
+                correctWord[j] = guessedLetter;
                 document.getElementById("wordToGuess").innerHTML = correctWord.join(' ');
-                correctWord[rightLetter.indexOf(guessedLetter)] = guessedLetter;
             }
         }
 
-        console.log(correctWord);
-
         // If user guesses the word before guesses left reaches zero, they win
-
-        /* if (correctWord == mystWord) {
+        console.log(correctWord);
+        console.log(mystWord);
+        console.log('----')
+        if (correctWord.indexOf("_") < 0) {
             alert("You Win");
-        } */
+            reset();
+        }
 
     // If guess is wrong, add letter to wrong letters guessed and reduce the number of guesses left
 
-    } else if (randWord.indexOf(guessedLetter) < 0 && validLetter.indexOf(guessedLetter) > -1) {
-        wrongLetter.push(guessedLetter);
+    } else if (validLetter.indexOf(guessedLetter) > -1 && wrongLetter.indexOf(guessedLetter) < 0) {
         
-        document.getElementById("lettersGuessed").append(guessedLetter);
-
-        var guessesLeft = (7 - wrongLetter.length);
-        document.getElementById("guessesLeft").innerHTML = guessesLeft;
+            wrongLetter.push(guessedLetter);
+            
+            document.getElementById("lettersGuessed").append(guessedLetter);
+            
+            var guessesLeft = (7 - wrongLetter.length);
+            document.getElementById("guessesLeft").innerHTML = guessesLeft;
 
         // User loses if word is not guessed by the time letters run out
 
@@ -87,26 +86,21 @@ document.addEventListener('keyup', function(event) {
 
 // Reset without refreshing the page
 function reset() {
-    var randWord = words[Math.floor(Math.random() * words.length)];
+    randWord = words[Math.floor(Math.random() * words.length)];
 
-    console.log(randWord);
-    var mystWord = randWord.split('');
+    mystWord = randWord.split('');
 
-    var blanks = [];
-
-    var rightLetter2 = rightLetter;
     rightLetter = [];
 
-    var wrongLetter2 = wrongLetter;
     wrongLetter = [];
 
-    var correctWord = [];
+    correctWord = [];
 
     document.getElementById("guessesLeft").innerHTML = 7;
 
     var generateUnderscore = function() {
         for (var i = 0; i < mystWord.length; i++) {
-            correctWord.push(" _ ");
+            correctWord.push("_");
             }
         return correctWord;    
     }
