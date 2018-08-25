@@ -20,19 +20,20 @@ var wrongLetter = [];
 // Correct letters displayed with blanks corresponding with mystWord
 var correctWord = [];
 
+document.getElementById("guessesLeft").innerHTML = 7;
+
 // Display underscores for each letter of random word
 
 var generateUnderscore = function() {
     for (var i = 0; i < mystWord.length; i++) {
         correctWord.push(" _ ");
-        document.getElementById("wordToGuess").innerHTML = correctWord;
-    }
+        }
     return correctWord;    
 }
 
-document.getElementById("wordToGuess").innerHTML = correctWord.join(' ');
-
 document.getElementById("wordToGuess").append(generateUnderscore());
+
+document.getElementById("wordToGuess").innerHTML = correctWord.join(' ');
 
 // Event that listens to letter guesses from user
 
@@ -51,10 +52,9 @@ document.addEventListener('keyup', function(event) {
         // If guess is correct, replace underscore with corrisponding letter
 
         for (var j = 0; j < blanks; j++) {
-            if (mystWord[j] === guessedLetter) {
-                correctWord[j] = guessedLetter;
-                document.getElementById('wordToGuess').innerHTML = correctWord.join(' ');
-                /* underscore[rightLetter.indexOf(guessedLetter)] = guessedLetter; */
+            if (guessedLetter === mystWord[j]) {
+                document.getElementById("wordToGuess").innerHTML = correctWord.join(' ');
+                correctWord[rightLetter.indexOf(guessedLetter)] = guessedLetter;
             }
         }
 
@@ -70,20 +70,53 @@ document.addEventListener('keyup', function(event) {
 
     } else if (randWord.indexOf(guessedLetter) < 0 && validLetter.indexOf(guessedLetter) > -1) {
         wrongLetter.push(guessedLetter);
+        
         document.getElementById("lettersGuessed").append(guessedLetter);
 
-        console.log(wrongLetter);
+        var guessesLeft = (7 - wrongLetter.length);
+        document.getElementById("guessesLeft").innerHTML = guessesLeft;
+
+        // User loses if word is not guessed by the time letters run out
 
         if (wrongLetter.length > 6) {
-                alert("You lose, refresh to try again.")
+                alert("Click OK to try again");
+                reset();
         };
     }
 });
 
+// Reset without refreshing the page
 function reset() {
-    document.getElementById("guessesLeft").innerHTML = 0;
-}
+    var randWord = words[Math.floor(Math.random() * words.length)];
+
+    console.log(randWord);
+    var mystWord = randWord.split('');
+
+    var blanks = [];
+
+    var rightLetter2 = rightLetter;
+    rightLetter = [];
+
+    var wrongLetter2 = wrongLetter;
+    wrongLetter = [];
+
+    var correctWord = [];
+
+    document.getElementById("guessesLeft").innerHTML = 7;
+
+    var generateUnderscore = function() {
+        for (var i = 0; i < mystWord.length; i++) {
+            correctWord.push(" _ ");
+            }
+        return correctWord;    
+    }
+
+    document.getElementById("wordToGuess").append(generateUnderscore());
+
+    document.getElementById("wordToGuess").innerHTML = correctWord.join(' ');
+
+    document.getElementById("lettersGuessed").innerHTML = "";
+};
 
 
 
-// User loses if word is not guessed by the time letters run out
