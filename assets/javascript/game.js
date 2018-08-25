@@ -3,8 +3,6 @@ var words = ["ball", "skunk", "window"];
 
 var randWord = words[Math.floor(Math.random() * words.length)];
 
-console.log(randWord);
-
 // Converts randWord (string) into an array
 var mystWord = randWord.split('');
 
@@ -16,6 +14,12 @@ var wrongLetter = [];
 
 // Correct letters displayed with blanks corresponding with mystWord
 var correctWord = [];
+
+var wins = 0;
+document.getElementById("wins").innerHTML = 0;
+
+var losses = 0;
+document.getElementById("losses").innerHTML = 0;
 
 document.getElementById("guessesLeft").innerHTML = 7;
 
@@ -56,12 +60,12 @@ document.addEventListener('keyup', function(event) {
         }
 
         // If user guesses the word before guesses left reaches zero, they win
-        console.log(correctWord);
-        console.log(mystWord);
-        console.log('----')
+
         if (correctWord.indexOf("_") < 0) {
             alert("You Win");
             reset();
+            wins++
+            document.getElementById("wins").innerHTML = wins;
         }
 
     // If guess is wrong, add letter to wrong letters guessed and reduce the number of guesses left
@@ -80,6 +84,8 @@ document.addEventListener('keyup', function(event) {
         if (wrongLetter.length > 6) {
                 alert("Click OK to try again");
                 reset();
+                losses++;
+                document.getElementById("losses").innerHTML = losses;
         };
     }
 });
