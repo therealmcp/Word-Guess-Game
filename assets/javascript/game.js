@@ -64,8 +64,6 @@ document.addEventListener('keyup', function(event) {
         // If user guesses the word before guesses left reaches zero, they win
 
         if (correctWord.indexOf("_") < 0) {
-            alert("You Win");
-            reset();
             wins++
             document.getElementById("wins").innerHTML = wins;
             setTimeout("alert('Nice work, Jeff Goldblum')", 500);
@@ -88,7 +86,6 @@ document.addEventListener('keyup', function(event) {
         if (wrongLetter.length > 6) {
                 setTimeout("alert('The world was destroyed')", 500);
                 setTimeout("reset()", 1000);
-                reset();
                 losses++;
                 document.getElementById("losses").innerHTML = losses;
         };
