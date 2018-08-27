@@ -1,7 +1,9 @@
 // Word chosen randomly
-var words = ["ball", "skunk", "window"];
+var words = ["ship", "independence", "cigar", "explosion", "aliens", "blue", "black", "pneumonoultramicroscopicsilicovolcanoconiosis", "invasion"];
 
 var randWord = words[Math.floor(Math.random() * words.length)];
+
+console.log(randWord);
 
 // Converts randWord (string) into an array
 var mystWord = randWord.split('');
@@ -66,6 +68,8 @@ document.addEventListener('keyup', function(event) {
             reset();
             wins++
             document.getElementById("wins").innerHTML = wins;
+            setTimeout("alert('Nice work, Jeff Goldblum')", 500);
+            setTimeout("reset()", 1000);
         }
 
     // If guess is wrong, add letter to wrong letters guessed and reduce the number of guesses left
@@ -82,7 +86,8 @@ document.addEventListener('keyup', function(event) {
         // User loses if word is not guessed by the time letters run out
 
         if (wrongLetter.length > 6) {
-                alert("Click OK to try again");
+                setTimeout("alert('The world was destroyed')", 500);
+                setTimeout("reset()", 1000);
                 reset();
                 losses++;
                 document.getElementById("losses").innerHTML = losses;
