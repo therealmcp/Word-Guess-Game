@@ -3,8 +3,6 @@ var words = ["ship", "independence", "cigar", "explosion", "aliens", "blue", "bl
 
 var randWord = words[Math.floor(Math.random() * words.length)];
 
-console.log(randWord);
-
 // Converts randWord (string) into an array
 var mystWord = randWord.split('');
 
@@ -22,7 +20,6 @@ document.getElementById("wins").innerHTML = 0;
 
 var losses = 0;
 document.getElementById("losses").innerHTML = 0;
-
 document.getElementById("guessesLeft").innerHTML = 7;
 
 // Display underscores for each letter of random word
@@ -35,7 +32,6 @@ var generateUnderscore = function() {
 }
 
 document.getElementById("wordToGuess").append(generateUnderscore());
-
 document.getElementById("wordToGuess").innerHTML = correctWord.join(' ');
 
 // Event that listens to letter guesses from user
@@ -73,11 +69,8 @@ document.addEventListener('keyup', function(event) {
     // If guess is wrong, add letter to wrong letters guessed and reduce the number of guesses left
 
     } else if (validLetter.indexOf(guessedLetter) > -1 && wrongLetter.indexOf(guessedLetter) < 0) {
-        
             wrongLetter.push(guessedLetter);
-            
             document.getElementById("lettersGuessed").append(guessedLetter);
-            
             var guessesLeft = (7 - wrongLetter.length);
             document.getElementById("guessesLeft").innerHTML = guessesLeft;
 
@@ -93,17 +86,13 @@ document.addEventListener('keyup', function(event) {
 });
 
 // Reset without refreshing the page
+
 function reset() {
     randWord = words[Math.floor(Math.random() * words.length)];
-
     mystWord = randWord.split('');
-
     rightLetter = [];
-
     wrongLetter = [];
-
     correctWord = [];
-
     document.getElementById("guessesLeft").innerHTML = 7;
 
     var generateUnderscore = function() {
@@ -114,9 +103,7 @@ function reset() {
     }
 
     document.getElementById("wordToGuess").append(generateUnderscore());
-
     document.getElementById("wordToGuess").innerHTML = correctWord.join(' ');
-
     document.getElementById("lettersGuessed").innerHTML = "";
 };
 
